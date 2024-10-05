@@ -1,12 +1,19 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LogoDetails from './components/LogoDetails';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
 
 const App: React.FC = () => {
   return (
-    <>
-      <h1 className="bg-red-600 font-serif text-3xl font-bold underline">
-        Logo Longtail
-      </h1>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/logos/:name" element={<LogoDetails />} />
+      </Routes>
+    </Router>
   );
 };
 
