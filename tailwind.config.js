@@ -1,8 +1,53 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        body: [
+          '"Mulish"',
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+        ],
+      },
+      colors: {
+        dark: '#000',
+      },
+      screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+        '3xl': '1920px',
+      },
+      container: {
+        center: true,
+        screens: {
+          sm: '100%',
+          md: '100%',
+          lg: '1024px',
+          xl: '1280px',
+          '2xl': '1600px',
+        },
+      },
+      animation: {
+        scaleIn: 'scaleIn 0.3s ease-out forwards',
+      },
+      keyframes: {
+        scaleIn: {
+          '0%': {
+            transform: 'scale(0)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'scale(1)',
+            opacity: '1',
+          },
+        },
+      },
+    },
   },
   plugins: [],
 };

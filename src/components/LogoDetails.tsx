@@ -28,7 +28,7 @@ const LogoDetails: React.FC = () => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleOverlayClick}
     >
-      <div className="animate-scaleIn relative w-3/4 max-w-4xl scale-0 transform rounded-lg bg-white p-8 shadow-lg transition-transform">
+      <div className="animate-scaleIn relative w-3/4 max-w-4xl scale-0 rounded-lg bg-white p-8 shadow-lg transition-all duration-300 ease-linear">
         <button
           className="absolute right-4 top-4 text-xl text-gray-600"
           onClick={closeModal}
