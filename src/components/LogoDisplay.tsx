@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { logoDetails, Logo } from '../constants/data';
+import { logoDetails } from '../constants/data';
+import { Logo } from '../interfaces/types';
 
 const LogoDisplay: React.FC = () => {
   return (

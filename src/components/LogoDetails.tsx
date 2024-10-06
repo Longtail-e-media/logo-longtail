@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { logoDetails, Logo } from '../constants/data';
+import { logoDetails } from '../constants/data';
+import { Logo } from '../interfaces/types';
 
 const LogoDetails: React.FC = () => {
   const { name } = useParams<{ name: string }>();
@@ -27,7 +28,7 @@ const LogoDetails: React.FC = () => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleOverlayClick}
     >
-      <div className="relative w-3/4 max-w-4xl rounded-lg bg-white p-8 shadow-lg transition-transform transform scale-0 animate-scaleIn">
+      <div className="animate-scaleIn relative w-3/4 max-w-4xl scale-0 transform rounded-lg bg-white p-8 shadow-lg transition-transform">
         <button
           className="absolute right-4 top-4 text-xl text-gray-600"
           onClick={closeModal}
@@ -62,11 +63,7 @@ const DownloadLinks: React.FC<{ logoFormats: Logo['logoFormats'] }> = ({
     <ul>
       {Object.entries(logoFormats).map(([key, value]) => (
         <li key={key}>
-          <a
-            href={value}
-            className="text-blue-500 hover:underline"
-            download
-          >
+          <a href={value} className="text-blue-500 hover:underline" download>
             {key.split('_')[1].toUpperCase()}
           </a>
         </li>
