@@ -2,9 +2,11 @@ import React from 'react';
 
 const Search: React.FC = () => {
   return (
-    <>
-      <h1>Search here</h1>
-    </>
+    <input
+      type="text"
+      placeholder="Search logos..."
+      className="w-full border p-2"
+    />
   );
 };
 

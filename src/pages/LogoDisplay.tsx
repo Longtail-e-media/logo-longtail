@@ -7,10 +7,10 @@ const LogoDisplay: React.FC = () => {
   return (
     <>
       <main className="grid grid-cols-6 gap-4">
-        {logoDetails.map((logo: Logo) => (
+        {logoDetails.map((logo: Logo, index) => (
           <Link
             to={`/logos/${logo.name}`}
-            key={logo.id}
+            key={index}
             className="border p-4 text-center shadow-sm transition-all duration-100 hover:shadow"
           >
             <img
