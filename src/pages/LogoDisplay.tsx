@@ -13,7 +13,7 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
     <main className="grid grid-cols-2 md:grid-cols-6 gap-4">
       {logos.map((logo: Logo, index) => (
         <Link
-          to={`/logos/${logo.name}`}
+          to={`/logo/${logo.name}`}
           // key={logo.id}
           key={index}
           className="border p-4 text-center shadow-sm transition-all duration-100 hover:shadow bg-white flex items-center justify-center"

@@ -10,7 +10,6 @@ import LogoDisplay from './pages/LogoDisplay';
 import LogoDetails from './components/LogoDetails';
 import { Logo } from './interfaces/types';
 import About from './pages/About';
-import Test from './pages/Test';
 import useFetchLogos from './hooks/useFetchLogos';
 
 const App: React.FC = () => {
@@ -37,8 +36,7 @@ const App: React.FC = () => {
       <Navbar setFilteredLogos={setFilteredLogos} />
       <Routes>
         <Route path="/" element={<LogoDisplay logos={filteredLogos} />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/logos/:name" element={<LogoDetails />} />
+        <Route path="/logo/:name" element={<LogoDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
