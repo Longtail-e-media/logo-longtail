@@ -8,13 +8,29 @@ import {
 import Navbar from './components/Navbar';
 import LogoDisplay from './pages/LogoDisplay';
 import LogoDetails from './components/LogoDetails';
-import { logoDetails } from './constants/data';
 import { Logo } from './interfaces/types';
 import About from './pages/About';
 import Test from './pages/Test';
+import useFetchLogos from './hooks/useFetchLogos';
 
 const App: React.FC = () => {
-  const [filteredLogos, setFilteredLogos] = useState<Logo[]>(logoDetails);
+  // Declare useState before any conditional logic
+  const [filteredLogos, setFilteredLogos] = useState<Logo[]>([]);
+
+  const { data, loading, error } = useFetchLogos(
+    'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
+  );
+
+  // Make sure to update filteredLogos once data is fetched
+  React.useEffect(() => {
+    if (data.length > 0) {
+      setFilteredLogos(data);
+    }
+  }, [data]);
+
+  // Render loading or error state if applicable
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Router>

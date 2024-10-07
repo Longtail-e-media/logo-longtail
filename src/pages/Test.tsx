@@ -9,7 +9,7 @@
 //   useEffect(() => {
 //     axios
 //       .get(
-//         'https://longtail.info/logo/dynamic/api/v1/gYGsmkvgxEjESdzDEQyytPzrPMPWYzvlfnnqGpRntBnyZJSqOT.php/',
+//         'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
 //       )
 //       .then((response) => {
 //         setData(response.data);
@@ -98,7 +98,7 @@
 //   useEffect(() => {
 //     axios
 //       .get(
-//         'https://longtail.info/logo/dynamic/api/v1/gYGsmkvgxEjESdzDEQyytPzrPMPWYzvlfnnqGpRntBnyZJSqOT.php/',
+//         'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
 //       )
 //       .then((response) => {
 //         console.log('API Response:', response.data); // Log API response
@@ -189,7 +189,7 @@ import useFetchLogos from '../hooks/useFetchLogos';
 
 const Test: React.FC = () => {
   const { data, loading, error } = useFetchLogos(
-    'https://longtail.info/logo/dynamic/api/v1/gYGsmkvgxEjESdzDEQyytPzrPMPWYzvlfnnqGpRntBnyZJSqOT.php/',
+    'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
   );
 
   if (loading) return <p>Loading...</p>;

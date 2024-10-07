@@ -1,22 +1,36 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { logoDetails } from '../constants/data';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
+import useFetchLogos from '../hooks/useFetchLogos';
+
+// import longtailLogo from '../assets/logo.svg';
 
 const LogoDetails: React.FC = () => {
+  // Move hooks to the top level
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
 
-  const logo = logoDetails.find((logo: Logo) => logo.name === name);
+  // Fetch logos
+  const { data, loading, error } = useFetchLogos(
+    'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
+  );
+
+  // Check loading and error after hooks are declared
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  const logo = data.find((logo: Logo) => logo.name === name);
 
   if (!logo) {
-    return null; // Handle case where logo is not found
+    return <p>Logo not found</p>; // Handle case where logo is not found
   }
 
+  // Close modal function
   const closeModal = () => {
     navigate(-1);
   };
 
+  // Handle overlay click
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
       closeModal();
@@ -28,7 +42,7 @@ const LogoDetails: React.FC = () => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
       onClick={handleOverlayClick}
     >
-      <div className="animate-scaleIn relative size-full scale-0 rounded-lg shadow-lg transition-all duration-300 ease-linear md:size-4/5">
+      <div className="relative size-full scale-0 animate-scaleIn rounded-lg shadow-lg transition-all duration-300 ease-linear md:size-4/5">
         <button
           className="absolute right-4 top-3 text-4xl text-gray-800"
           onClick={closeModal}
@@ -66,13 +80,13 @@ const DownloadLinks: React.FC<{ logoFormats: Logo['logoFormats'] }> = ({
     <ul className="flex items-center gap-4">
       {Object.entries(logoFormats).map(([key, value]) => (
         <li key={key}>
-          <a
-            href={value}
+          <Link
+            to={value}
             className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
             download
           >
             {key.split('_')[1].toUpperCase()}
-          </a>
+          </Link>
         </li>
       ))}
     </ul>
