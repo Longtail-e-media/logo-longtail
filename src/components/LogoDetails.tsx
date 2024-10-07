@@ -25,27 +25,30 @@ const LogoDetails: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
       onClick={handleOverlayClick}
     >
-      <div className="animate-scaleIn relative w-3/4 max-w-4xl scale-0 rounded-lg bg-white p-8 shadow-lg transition-all duration-300 ease-linear">
+      <div className="animate-scaleIn relative size-full scale-0 rounded-lg shadow-lg transition-all duration-300 ease-linear md:size-4/5">
         <button
-          className="absolute right-4 top-4 text-xl text-gray-600"
+          className="absolute right-4 top-3 text-4xl text-gray-800"
           onClick={closeModal}
         >
           &times;
         </button>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="flex justify-center">
+        <div className="grid h-full grid-cols-1 gap-0 md:grid-cols-3">
+          <div className="flex items-center justify-center bg-white px-12 md:col-span-2">
             <img
               src={logo.logoFormats.img_svg}
               alt={logo.title}
-              className="h-auto w-full max-w-md object-contain"
+              className="h-auto w-full object-contain"
             />
           </div>
-          <div className="pl-6">
+          <div className="col-span-1 bg-gray-100 p-8 pt-14">
             <h2 className="mb-4 text-2xl font-bold">{logo.title}</h2>
-            <p className="mb-4 text-gray-700">{logo.content}</p>
+            <p className="max-h-48 overflow-y-auto text-pretty text-justify text-gray-700 md:max-h-80">
+              {logo.content}
+            </p>
+            <hr className="my-6 border-gray-400" />
             <DownloadLinks logoFormats={logo.logoFormats} />
           </div>
         </div>
@@ -59,11 +62,15 @@ const DownloadLinks: React.FC<{ logoFormats: Logo['logoFormats'] }> = ({
   logoFormats,
 }) => (
   <div>
-    <p className="mb-2 text-lg font-semibold">Download Links:</p>
-    <ul>
+    <p className="mb-6 text-lg font-semibold">Download Links:</p>
+    <ul className="flex items-center gap-4">
       {Object.entries(logoFormats).map(([key, value]) => (
         <li key={key}>
-          <a href={value} className="text-blue-500 hover:underline" download>
+          <a
+            href={value}
+            className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
+            download
+          >
             {key.split('_')[1].toUpperCase()}
           </a>
         </li>

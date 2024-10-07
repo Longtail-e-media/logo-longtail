@@ -1,6 +1,8 @@
 import React from 'react';
 import Search from './Search';
+import logoLongtail from '../assets/logo.svg';
 import { Logo } from '../interfaces/types';
+import { Link, NavLink } from 'react-router-dom';
 
 interface NavbarProps {
   setFilteredLogos: React.Dispatch<React.SetStateAction<Logo[]>>;
@@ -8,12 +10,21 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ setFilteredLogos }) => {
   return (
-    <nav className="sticky top-0 flex items-center justify-between bg-gray-100 px-4 py-4">
-      <h1>Logo</h1>
-      <div className="mx-4 flex w-full max-w-md">
-        <Search setFilteredLogos={setFilteredLogos} />
-      </div>
-      <a href="">About</a>
+    <nav className="sticky top-0 flex items-center justify-between bg-gray-100 px-5 py-2">
+      <h1>
+        <Link to="/">
+          <img src={logoLongtail} alt="Logo Longtail" className="h-8" />
+        </Link>
+      </h1>
+      <Search setFilteredLogos={setFilteredLogos} />
+      <NavLink
+        to="/about"
+        className={({ isActive }) =>
+          `${isActive ? 'font-extrabold' : 'font-bold'} text-[#bf1f49]`
+        }
+      >
+        About
+      </NavLink>
     </nav>
   );
 };
