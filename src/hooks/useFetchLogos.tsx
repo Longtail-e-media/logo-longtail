@@ -1,28 +1,34 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Logo } from '../interfaces/types';
 
-const API_URL = 'https://longtail.info/logo/dynamic/api/v1/getProperties.php';
-
-export const useFetchLogos = () => {
-  const [logos, setLogos] = useState<Logo[]>([]); // Default to an empty array
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const useFetchLogos = (url: string) => {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<any>(null);
 
   useEffect(() => {
-    const fetchLogos = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        setLogos(response.data);
-      } catch (error) {
-        setError('Failed to fetch logos');
-      } finally {
+    axios
+      .get(url)
+      .then((response) => {
+        console.log('API Response:', response.data); // Log API response
+        const jsonString = response.data.replace('const logoDetails = ', '').replace(/;$/, '');
+        const parsedData = JSON.parse(jsonString);
+        console.log('Parsed Data:', parsedData); // Log parsed data
+        if (Array.isArray(parsedData)) {
+          setData(parsedData);
+        } else {
+          setData([parsedData]);
+        }
         setLoading(false);
-      }
-    };
+      })
+      .catch((error) => {
+        console.error('API Error:', error); // Log API error
+        setError(error);
+        setLoading(false);
+      });
+  }, [url]);
 
-    fetchLogos();
-  }, []);
-
-  return { logos, loading, error };
+  return { data, loading, error };
 };
+
+export default useFetchLogos;

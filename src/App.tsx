@@ -11,6 +11,7 @@ import LogoDetails from './components/LogoDetails';
 import { logoDetails } from './constants/data';
 import { Logo } from './interfaces/types';
 import About from './pages/About';
+import Test from './pages/Test';
 
 const App: React.FC = () => {
   const [filteredLogos, setFilteredLogos] = useState<Logo[]>(logoDetails);
@@ -20,6 +21,7 @@ const App: React.FC = () => {
       <Navbar setFilteredLogos={setFilteredLogos} />
       <Routes>
         <Route path="/" element={<LogoDisplay logos={filteredLogos} />} />
+        <Route path="/test" element={<Test />} />
         <Route path="/logos/:name" element={<LogoDetails />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Navigate to="/" />} />
