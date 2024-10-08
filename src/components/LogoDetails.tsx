@@ -31,7 +31,7 @@ const LogoDetails: React.FC = () => {
         <p className="text-center text-base md:text-4xl">Logo not found</p>
         <Link
           to="/"
-          className="group inline-flex items-center justify-center gap-2 rounded-full bg-logo px-6 py-1 text-xs font-bold text-white md:text-base"
+          className="bg-logo group inline-flex items-center justify-center gap-2 rounded-full px-6 py-1 text-xs font-bold text-white md:text-base"
         >
           <i className="text-base transition-all duration-300 group-hover:-translate-x-2 md:text-2xl">
             &larr;
@@ -95,17 +95,20 @@ const DownloadLinks: React.FC<{ logoFormats: Logo['logoFormats'] }> = ({
   <div>
     <p className="mb-6 text-lg font-semibold">Download Links:</p>
     <ul className="flex items-center gap-4">
-      {Object.entries(logoFormats).map(([key, value]) => (
-        <li key={key}>
-          <Link
-            to={value}
-            className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
-            download
-          >
-            {key.split('_')[1].toUpperCase()}
-          </Link>
-        </li>
-      ))}
+      {Object.entries(logoFormats).map(
+        ([key, value]) =>
+          value && (
+            <li key={key}>
+              <a
+                href={value}
+                className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
+                download
+              >
+                {key.split('_')[1].toUpperCase()}
+              </a>
+            </li>
+          ),
+      )}
     </ul>
   </div>
 );
