@@ -7,21 +7,24 @@ interface LogoDisplayProps {
 }
 
 const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
-  if (!logos || logos.length === 0) return <p className='mt-16 text-center text-base md:text-4xl'>No logos found.</p>;
+  if (!logos || logos.length === 0)
+    return (
+      <p className="mt-16 text-center text-base md:text-4xl">No logos found.</p>
+    );
 
   return (
-    <main className="grid grid-cols-2 md:grid-cols-6 gap-4">
+    <main className="grid grid-cols-2 gap-4 md:grid-cols-6">
       {logos.map((logo: Logo, index) => (
         <Link
           to={`/logo/${logo.name}`}
           // key={logo.id}
           key={index}
-          className="border p-4 text-center shadow-sm transition-all duration-100 hover:shadow bg-white flex items-center justify-center"
+          className="flex items-center justify-center border bg-white py-8 px-4 text-center shadow-sm transition-all duration-100 hover:shadow"
         >
           <img
-            src={logo.img_thumb}
+            src={logo.logoFormats.img_svg}
             alt={logo.title}
-            className="aspect-square size-36 md:size-48 bg-transparent object-contain"
+            className="aspect-square size-36 bg-transparent object-contain md:size-48"
             draggable="false"
           />
         </Link>

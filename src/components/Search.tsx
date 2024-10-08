@@ -38,8 +38,7 @@ const Search: React.FC<SearchProps> = ({ setFilteredLogos }) => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="relative flex w-full max-w-56 items-center gap-3 border-b-2 border-gray-300 px-2 md:max-w-md">
-      {/* Search Icon */}
+    <div className="relative flex w-full max-w-56 items-center gap-3 bg-white border-b-2 border-gray-300 px-2 md:max-w-md">
       <svg
         stroke="currentColor"
         fill="none"
@@ -57,7 +56,7 @@ const Search: React.FC<SearchProps> = ({ setFilteredLogos }) => {
       </svg>
       <input
         type="text"
-        placeholder="Search for logos..."
+        placeholder="Search for logos ..."
         value={query}
         onChange={handleSearch}
         className="w-full bg-transparent py-3 text-base text-black placeholder-dark transition duration-200 focus:outline-none md:text-base"

@@ -5,7 +5,6 @@ export interface Logo {
   content?: string;
   img_thumb?: string;
   logoFormats: {
-    img_jpg?: string;
     img_png?: string;
     img_svg?: string;
   };
