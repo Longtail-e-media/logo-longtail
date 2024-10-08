@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
 
+// import { logoDetails } from '../constants/data';
+
 interface LogoDisplayProps {
   logos: Logo[];
 }
@@ -9,7 +11,18 @@ interface LogoDisplayProps {
 const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
   if (!logos || logos.length === 0)
     return (
-      <p className="mt-16 text-center text-base md:text-4xl">No logos found.</p>
+      <section className="flex h-screen w-full flex-col items-center justify-center gap-8">
+        <p className="text-center text-base md:text-4xl">No logos found.</p>
+        <Link
+          to="/"
+          className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#bf1f49] px-6 py-1 text-xs font-bold text-white md:text-base"
+        >
+          <i className="text-base transition-all duration-300 group-hover:-translate-x-2 md:text-2xl">
+            &larr;
+          </i>
+          Back to Home
+        </Link>
+      </section>
     );
 
   return (
@@ -19,7 +32,7 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
           to={`/logo/${logo.name}`}
           // key={logo.id}
           key={index}
-          className="flex items-center justify-center border bg-white py-8 px-4 text-center shadow-sm transition-all duration-100 hover:shadow"
+          className="flex items-center justify-center border bg-white p-4 text-center shadow-sm transition-all duration-100 hover:shadow md:px-4 md:py-8"
         >
           <img
             src={logo.logoFormats.img_svg}

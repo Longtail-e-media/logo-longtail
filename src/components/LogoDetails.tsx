@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
 import useFetchLogos from '../hooks/useFetchLogos';
+import Loader from './Loader';
 
 // import longtailLogo from '../assets/logo.svg';
 
@@ -16,13 +17,29 @@ const LogoDetails: React.FC = () => {
   );
 
   // Check loading and error after hooks are declared
-  if (loading) return <p>Loading...</p>;
+  if (loading) return;
+  <>
+    <Loader />
+  </>;
   if (error) return <p>Error: {error.message}</p>;
 
   const logo = data.find((logo: Logo) => logo.name === name);
 
   if (!logo) {
-    return <p>Logo not found</p>; // Handle case where logo is not found
+    return (
+      <section className="flex h-screen w-full flex-col items-center justify-center gap-8">
+        <p className="text-center text-base md:text-4xl">Logo not found</p>
+        <Link
+          to="/"
+          className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#bf1f49] px-6 py-1 text-xs font-bold text-white md:text-base"
+        >
+          <i className="text-base transition-all duration-300 group-hover:-translate-x-2 md:text-2xl">
+            &larr;
+          </i>
+          Back to Home
+        </Link>
+      </section>
+    ); // Handle case where logo is not found
   }
 
   // Close modal function

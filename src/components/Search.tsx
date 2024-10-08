@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from '../interfaces/types';
 import useFetchLogos from '../hooks/useFetchLogos';
+// import Loader from './Loader';
 
 interface SearchProps {
   setFilteredLogos: React.Dispatch<React.SetStateAction<Logo[]>>;
@@ -33,12 +34,11 @@ const Search: React.FC<SearchProps> = ({ setFilteredLogos }) => {
     setQuery(e.target.value);
   };
 
-  // Render early return outside hook logic to keep hook order intact
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <>{/* <Loader /> */}</>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="relative flex w-full max-w-56 items-center gap-3 bg-white border-b-2 border-gray-300 px-2 md:max-w-md">
+    <div className="relative flex w-full max-w-56 items-center gap-3 border-b-2 border-gray-300 bg-white px-2 md:max-w-md">
       <svg
         stroke="currentColor"
         fill="none"

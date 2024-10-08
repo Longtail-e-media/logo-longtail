@@ -10,7 +10,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ setFilteredLogos }) => {
   return (
-    <nav className="sticky top-0 flex items-center justify-between bg-gray-100 px-5 py-2">
+    <nav className="fixed top-0 flex w-full items-center justify-between bg-gray-100 px-5 py-2">
       <h1>
         <Link to="/">
           <img src={logoLongtail} alt="Logo Longtail" className="h-8" />
