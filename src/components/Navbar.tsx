@@ -10,7 +10,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ setFilteredLogos }) => {
   return (
-    <nav className="fixed top-0 flex w-full items-center justify-between bg-gray-100 px-5 py-2">
+    <nav className="Z-50 fixed top-0 flex w-full items-center justify-between bg-gray-100 px-5 py-2">
       <h1>
         <Link to="/">
           <img src={logoLongtail} alt="Logo Longtail" className="h-8" />
@@ -20,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ setFilteredLogos }) => {
       <NavLink
         to="/about"
         className={({ isActive }) =>
-          `${isActive ? 'font-extrabold' : 'font-bold'} text-[#bf1f49]`
+          `${isActive ? 'font-extrabold' : 'font-bold'} text-logo`
         }
       >
         About

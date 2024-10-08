@@ -5,7 +5,7 @@ const About: React.FC = () => {
   return (
     <main className="container max-w-4xl text-center">
       <div className="space-y-8">
-        <h1 className="mb-4 text-4xl font-bold text-[#bf1f49]">
+        <h1 className="mb-4 text-4xl font-bold text-logo">
           Get to know us
         </h1>
         <p className="text-pretty text-gray-800">
@@ -24,7 +24,7 @@ const About: React.FC = () => {
       <div className="mt-16">
         <Link
           to="/"
-          className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#bf1f49] px-6 py-1 font-bold text-white"
+          className="group inline-flex items-center justify-center gap-2 rounded-full bg-logo px-6 py-1 font-bold text-white"
         >
           <i className="text-2xl transition-all duration-300 group-hover:-translate-x-2">
             &larr;

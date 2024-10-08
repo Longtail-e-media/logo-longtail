@@ -4,15 +4,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: [
-          '"Mulish"',
-          'ui-sans-serif',
-          'system-ui',
-          'sans-serif',
-        ],
+        body: ['"Mulish"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         dark: '#000',
+        logo: '#bf1f49',
       },
       screens: {
         sm: '640px',
