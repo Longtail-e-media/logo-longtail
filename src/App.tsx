@@ -11,7 +11,7 @@ import LogoDetails from './components/LogoDetails';
 import { Logo } from './interfaces/types';
 import About from './pages/About';
 import useFetchLogos from './hooks/useFetchLogos';
-import Loader from './components/Loader';
+// import Loader from './components/Loader';
 
 const App: React.FC = () => {
   const [filteredLogos, setFilteredLogos] = useState<Logo[]>([]);
@@ -29,7 +29,7 @@ const App: React.FC = () => {
   if (loading)
     return (
       <>
-        <Loader />
+        {/* <Loader /> */}
       </>
     );
   if (error) return <p>Error: {error.message}</p>;

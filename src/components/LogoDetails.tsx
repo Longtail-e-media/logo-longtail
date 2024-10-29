@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
 import useFetchLogos from '../hooks/useFetchLogos';
-import Loader from './Loader';
+// import Loader from './Loader';
 
 // import longtailLogo from '../assets/logo.svg';
 
@@ -19,7 +19,7 @@ const LogoDetails: React.FC = () => {
   // Check loading and error after hooks are declared
   if (loading) return;
   <>
-    <Loader />
+    {/* <Loader /> */}
   </>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -71,7 +71,7 @@ const LogoDetails: React.FC = () => {
             <img
               src={logo.logoFormats.img_svg}
               alt={logo.title}
-              className="h-auto w-full object-contain"
+              className="h-auto max-h-[80vh] w-full object-contain"
             />
           </div>
           <div className="col-span-1 bg-gray-100 p-8 pt-14">
