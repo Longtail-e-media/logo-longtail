@@ -8,13 +8,13 @@ interface SearchProps {
 }
 
 const Search: React.FC<SearchProps> = ({ setFilteredLogos }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   // Declare state before any return or condition
   const [query, setQuery] = useState('');
 
   // Fetch logos
-  const { data, loading, error } = useFetchLogos(
-    'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
-  );
+  const { data, loading, error } = useFetchLogos(`${apiUrl}getLogo.php`);
 
   // UseEffect to filter logos based on query
   useEffect(() => {

@@ -10,6 +10,8 @@ const LoginModal: React.FC<LoginModalProps> = ({
   setShowLoginPopup,
   setIsLoggedIn,
 }) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState<{
@@ -38,7 +40,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
     // Hash the password using MD5
     const hashedPassword = MD5(password).toString();
 
-    const url = `https://longtail.info/logo/dynamic/api/v1/login.php/?email=${encodeURIComponent(
+    const url = `${apiUrl}login.php/?email=${encodeURIComponent(
       email,
     )}&password=${encodeURIComponent(hashedPassword)}`;
 

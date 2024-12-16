@@ -5,15 +5,15 @@ import useFetchLogos from '../hooks/useFetchLogos';
 import LoginModal from './LoginModal';
 
 const LogoDetails: React.FC = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   // Fetch logos
-  const { data, loading, error } = useFetchLogos(
-    'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
-  );
+  const { data, loading, error } = useFetchLogos(`${apiUrl}getLogo.php`);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;

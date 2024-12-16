@@ -1,50 +1,159 @@
-# React + TypeScript + Vite
+# [Logo Longtail](https://logo.longtail.info/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📖 Description
 
-Currently, two official plugins are available:
+`Logo Longtail` is an in-house project showcasing all the logos of the brands and companies `Longtail` has worked with. This platform was built with a dedicated team of designers and developers. Users can:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Search for logos,
+- View logos and their details,
+- Download logos in different formats (with proper authority).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🚀 Features
 
-- Configure the top-level `parserOptions` property like this:
+- 🔍 **Search**: Find logos efficiently using the search feature.
+- 🖼️ **View Details**: Explore detailed information about each logo.
+- 📥 **Download**: Download logos in various formats, if authorized.
+- 🔑 **User Authentication**: Secures download functionality.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+---
+
+## 🛠️ Technologies
+
+### `Frontend`
+- **Vite** + **React**: Fast and modern frontend tooling.
+- **TypeScript**: Type-safe JavaScript.
+- **pnpm**: Fast, disk space efficient package manager.
+- **Tailwind CSS**: Utility-first CSS framework.
+- **Axios**: Promise-based HTTP client.
+- **React Router**: Declarative routing for React.
+- **CryptoJS**: JavaScript library for cryptographic operations.
+
+### `Backend`
+- **PHP**: Server-side scripting language.
+- **MySQL**: Relational database management system.
+
+### `Deployment`
+- **Frontend**: Deployed on `Cloudflare` Pages.
+- **Backend**: Hosted on `MeroHamro` cPanel.
+
+---
+
+## 📁 Project Structure
+
+### **src/**
+
+| Folder            | Description                                      |
+|--------------------|-------------------------------------------------|
+| `components/`     | Contains reusable React components               |
+| `hooks/`          | Custom React hooks                               |
+| `pages/`          | Page-level components                            |
+| `styles/`         | Global CSS and TailwindCSS configurations        |
+| `utils/`          | Utility functions and API calls                  |
+| `types/`          | TypeScript type definitions                      |
+
+---
+
+```plaintext
+📂 logo-longtail
+├── 📂 public
+│   ├── favicon.ico
+│   ├── robots.txt
+│   └── index.html
+├── 📂 src
+│   ├── 📂 components
+│   │   ├── 📂 ui
+│   │   └── [Other Components]
+|   ├── 📂 components
+│   │   ├── 📂 ui
+│   │   └── [Other Components]
+|   ├── 📂 constants
+│   │   └── data.ts
+|   ├── 📂 layouts
+│   │   └── [Layout Components]
+│   ├── 📂 hooks
+│   │   └── useCustomHook.tsx
+│   ├── 📂 pages
+│   │   ├── Home.tsx
+│   │   └── About.tsx
+│   ├── 📂 utils
+│   │   ├── api.tsx
+│   ├── App.tsx
+│   ├── global.d.ts
+│   ├── main.tsx
+│   ├── vite-env.d.ts
+│   └── index.css
+├── .env
+├── .gitignore
+├── .prettierignore
+├── .prettierrc
+├── eslintrc.config.js
+├── index.html
+├── package.json
+├── postcss.config.js
+├── README.md
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+--- 
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## ⚙️ Setup and Installation Frontend
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+1. Clone the repository
+
+```bash
+git clone https://github.com/Longtail-e-media/logo-longtail.git
 ```
+
+2. Install the dependencies
+
+```bash
+pnpm install
+```
+
+3. Run the development server
+
+```bash
+pnpm run dev
+```
+
+(optional): For Local Network Access
+
+```bash
+pnpm run dev -- --host # Windows
+pnpm run dev --host -  # Mac
+```
+
+4. Build the project
+
+```bash
+pnpm vite build
+```
+
+5. Preview the production build
+
+```bash
+pnpm vite serve
+```
+
+6. 🔒 `.env` Configuration
+Create a .env file in the root directory and define the following environment variables:
+
+```bash
+VITE_API_URL=https://api.longtail.info
+VITE_API_KEY=YOUR_API_KEY
+VITE_API_SECRET=YOUR_API_SECRET
+```
+
+---
+
+## 📝 License
+All the assets, and codes used in this project are the propety of `Longtail e-Media`. Use of any of the property without the permission of the owner is strictly prohibited.
+
+## 🔖 Remarks
+This version organizes the documentation clearly and ensures that developers can quickly get started with the project. Let me know if you'd like further customization!

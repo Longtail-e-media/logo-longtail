@@ -14,11 +14,11 @@ import useFetchLogos from './hooks/useFetchLogos';
 // import Loader from './components/Loader';
 
 const App: React.FC = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [filteredLogos, setFilteredLogos] = useState<Logo[]>([]);
 
-  const { data, loading, error } = useFetchLogos(
-    'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
-  );
+  const { data, loading, error } = useFetchLogos(`${apiUrl}getLogo.php`);
 
   React.useEffect(() => {
     if (data.length > 0) {
@@ -26,12 +26,7 @@ const App: React.FC = () => {
     }
   }, [data]);
 
-  if (loading)
-    return (
-      <>
-        {/* <Loader /> */}
-      </>
-    );
+  if (loading) return <>{/* <Loader /> */}</>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
