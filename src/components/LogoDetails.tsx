@@ -1,26 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
 import useFetchLogos from '../hooks/useFetchLogos';
-// import Loader from './Loader';
-
-// import longtailLogo from '../assets/logo.svg';
+import LoginModal from './LoginModal';
 
 const LogoDetails: React.FC = () => {
-  // Move hooks to the top level
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   // Fetch logos
   const { data, loading, error } = useFetchLogos(
     'https://longtail.info/logo/dynamic/api/v1/getLogo.php/',
   );
 
-  // Check loading and error after hooks are declared
-  if (loading) return;
-  <>
-    {/* <Loader /> */}
-  </>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const logo = data.find((logo: Logo) => logo.name === name);
@@ -39,18 +34,20 @@ const LogoDetails: React.FC = () => {
           Back to Home
         </Link>
       </section>
-    ); // Handle case where logo is not found
+    );
   }
 
-  // Close modal function
-  const closeModal = () => {
-    navigate(-1);
+  const closeModal = () => navigate(-1);
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.currentTarget === e.target) closeModal();
   };
 
-  // Handle overlay click
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.currentTarget === e.target) {
-      closeModal();
+  const handleDownloadClick = (url: string) => {
+    if (isLoggedIn) {
+      window.location.href = url; // Trigger the download if logged in
+    } else {
+      setShowLoginPopup(true); // Show login popup if not logged in
     }
   };
 
@@ -80,18 +77,28 @@ const LogoDetails: React.FC = () => {
               {logo.content}
             </p>
             <hr className="my-6 border-gray-400" />
-            <DownloadLinks logoFormats={logo.logoFormats} />
+            <DownloadLinks
+              logoFormats={logo.logoFormats}
+              onDownloadClick={handleDownloadClick}
+            />
           </div>
         </div>
       </div>
+
+      {showLoginPopup && (
+        <LoginModal
+          setShowLoginPopup={setShowLoginPopup}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      )}
     </div>
   );
 };
 
-// Reusable component for download links
-const DownloadLinks: React.FC<{ logoFormats: Logo['logoFormats'] }> = ({
-  logoFormats,
-}) => (
+const DownloadLinks: React.FC<{
+  logoFormats: Logo['logoFormats'];
+  onDownloadClick: (url: string) => void;
+}> = ({ logoFormats, onDownloadClick }) => (
   <div>
     <p className="mb-6 text-lg font-semibold">Download Links:</p>
     <ul className="flex items-center gap-4">
@@ -99,21 +106,16 @@ const DownloadLinks: React.FC<{ logoFormats: Logo['logoFormats'] }> = ({
         ([key, value]) =>
           value && (
             <li key={key}>
-              {/* <a
-                href={value}
+              <button
                 className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
-                download
+                onClick={() =>
+                  onDownloadClick(
+                    `https://longtail.info/logo/dynamic/api/v1/downloadImage.php/?url=${value}`,
+                  )
+                }
               >
                 {key.split('_')[1].toUpperCase()}
-              </a> */}
-              <Link
-                to={`https://longtail.info/logo/dynamic/api/v1/downloadImage.php/?url=${value}`}
-                className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
-                download
-                // target="_blank"
-              >
-                {key.split('_')[1].toUpperCase()}
-              </Link>
+              </button>
             </li>
           ),
       )}

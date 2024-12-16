@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer components {
+  ::selection {
+    @apply bg-logo text-white;
+  }
 
   * {
     scrollbar-width: none;
@@ -15,10 +18,22 @@
   }
 
   body {
-    @apply font-body antialiased bg-gray-100 text-black;
+    @apply bg-gray-100 font-body text-black antialiased;
   }
 
   main {
     @apply px-4 py-24 sm:py-28 md:py-28 xl:py-28;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    @apply transition-[background-color] delay-0 duration-[5000s] ease-in-out;
   }
 }

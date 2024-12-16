@@ -32,7 +32,7 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
   return (
     <>
       <main>
-        <section className="grid grid-cols-2 gap-4 md:grid-cols-6">
+        <section className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6">
           {logos.slice(0, visibleItems).map((logo: Logo, index) => (
             <Link
               to={`/logo/${logo.name}`}
@@ -53,7 +53,7 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
           <div className="mt-14 flex items-center justify-center">
             <button
               onClick={handleLoadMore}
-              className="bg-logo hover:bg-logo/80 rounded border border-white px-4 py-2 font-bold text-white shadow transition-all duration-300 ease-in-out hover:scale-105"
+              className="rounded border border-white bg-logo px-4 py-2 font-bold text-white shadow transition-all duration-300 ease-in-out hover:scale-105 hover:bg-logo/80"
             >
               Load More
             </button>

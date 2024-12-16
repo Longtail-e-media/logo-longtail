@@ -49,12 +49,10 @@ const useFetchLogos = (url: string) => {
       axios
         .get(url)
         .then((response) => {
-          console.log('API Response:', response.data);
           const jsonString = response.data
             .replace('const logoDetails = ', '')
             .replace(/;$/, '');
           const parsedData = JSON.parse(jsonString);
-          console.log('Parsed Data:', parsedData);
           if (Array.isArray(parsedData)) {
             cache[url] = parsedData;
             setData(parsedData);
@@ -65,7 +63,6 @@ const useFetchLogos = (url: string) => {
           setLoading(false);
         })
         .catch((error) => {
-          console.error('API Error:', error);
           setError(error);
           setLoading(false);
         });
