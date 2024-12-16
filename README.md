@@ -152,6 +152,17 @@ VITE_API_SECRET=YOUR_API_SECRET
 
 ---
 
+## 👤 Team Members
+
+- **Concept**: [Bijan Bajracharya](#)
+- **Frontend Developer**: [Purna Shrestha](https://purnashrestha.com.np/)
+- **Backend Developer**: [Swarna Shakya](#), [Sahas Shakya](#)
+- **Team Lead**: [Sunita Shakya](#)
+
+---
+
+
+
 ## 📝 License
 All the assets, and codes used in this project are the propety of `Longtail e-Media`. Use of any of the property without the permission of the owner is strictly prohibited.
 
