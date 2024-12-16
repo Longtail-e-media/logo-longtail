@@ -5,9 +5,11 @@
 @tailwind utilities;
 
 @layer components {
+
   ::selection {
     @apply bg-logo text-white;
   }
+
 
   * {
     scrollbar-width: none;
@@ -36,4 +38,13 @@
   select:-webkit-autofill:focus {
     @apply transition-[background-color] delay-0 duration-[5000s] ease-in-out;
   }
+}
+
+img {
+  pointer-events: none;
+  /* Prevent clicks and interactions */
+  -webkit-user-drag: none;
+  /* Disable dragging */
+  user-select: none;
+  /* Disable text/image selection */
 }

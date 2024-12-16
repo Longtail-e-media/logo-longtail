@@ -43,7 +43,19 @@ export default {
           },
         },
       },
+      // for disabling user drag on image
+      userDrag: {
+        none: 'none',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.user-drag-none': {
+          WebkitUserDrag: 'none',
+        },
+      });
+    },
+  ],
 };
