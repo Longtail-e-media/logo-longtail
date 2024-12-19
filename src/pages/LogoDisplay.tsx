@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
 
 interface LogoDisplayProps {
+  isAdmin: boolean;
   logos: Logo[];
 }
 

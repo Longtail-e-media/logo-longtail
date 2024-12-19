@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
 import useFetchLogos from '../hooks/useFetchLogos';
-import LoginModal from './LoginModal';
 
-const LogoDetails: React.FC = () => {
+interface LogoDetailsProps {
+  isAdmin: boolean;
+}
+
+const LogoDetails: React.FC<LogoDetailsProps> = ({isAdmin}) => {
+
+  console.log('isAdmin', isAdmin);
+  
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   // Fetch logos
   const { data, loading, error } = useFetchLogos(`${apiUrl}getLogo.php`);
@@ -43,14 +47,6 @@ const LogoDetails: React.FC = () => {
     if (e.currentTarget === e.target) closeModal();
   };
 
-  const handleDownloadClick = (url: string) => {
-    if (isLoggedIn) {
-      window.location.href = url; // Trigger the download if logged in
-    } else {
-      setShowLoginPopup(true); // Show login popup if not logged in
-    }
-  };
-
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
@@ -77,28 +73,18 @@ const LogoDetails: React.FC = () => {
               {logo.content}
             </p>
             <hr className="my-6 border-gray-400" />
-            <DownloadLinks
-              logoFormats={logo.logoFormats}
-              onDownloadClick={handleDownloadClick}
-            />
+            <DownloadLinks logoFormats={logo.logoFormats} />
           </div>
         </div>
       </div>
-
-      {showLoginPopup && (
-        <LoginModal
-          setShowLoginPopup={setShowLoginPopup}
-          setIsLoggedIn={setIsLoggedIn}
-        />
-      )}
     </div>
   );
 };
 
-const DownloadLinks: React.FC<{
-  logoFormats: Logo['logoFormats'];
-  onDownloadClick: (url: string) => void;
-}> = ({ logoFormats, onDownloadClick }) => (
+// Reusable component for download links
+const DownloadLinks: React.FC<{ logoFormats: Logo['logoFormats'] }> = ({
+  logoFormats,
+}) => (
   <div>
     <p className="mb-6 text-lg font-semibold">Download Links:</p>
     <ul className="flex items-center gap-4">
@@ -106,16 +92,14 @@ const DownloadLinks: React.FC<{
         ([key, value]) =>
           value && (
             <li key={key}>
-              <button
+              <Link
+                to={`https://longtail.info/logo/dynamic/api/v1/downloadImage.php/?url=${value}`}
                 className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
-                onClick={() =>
-                  onDownloadClick(
-                    `https://longtail.info/logo/dynamic/api/v1/downloadImage.php/?url=${value}`,
-                  )
-                }
+                download
+                // target="_blank"
               >
                 {key.split('_')[1].toUpperCase()}
-              </button>
+              </Link>
             </li>
           ),
       )}
