@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LogoDisplay from './pages/LogoDisplay';
 import LogoDetails from './components/LogoDetails';
 import { Logo } from './interfaces/types';
 import About from './pages/About';
 import useFetchLogos from './hooks/useFetchLogos';
+import Error404 from './layouts/Error404';
 // import Loader from './components/Loader';
 
 const App: React.FC = () => {
@@ -36,7 +32,7 @@ const App: React.FC = () => {
         <Route path="/" element={<LogoDisplay logos={filteredLogos} />} />
         <Route path="/logo/:name" element={<LogoDetails />} />
         <Route path="/about" element={<About />} />
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </Router>
   );
