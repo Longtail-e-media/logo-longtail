@@ -17,8 +17,8 @@ const Navbar: React.FC<NavbarProps> = ({
   const handleLogout = () => setIsAdmin(false);
 
   return (
-    <nav className="fixed top-0 z-50 flex w-full items-center justify-between bg-gray-100 px-5 py-2">
-      <h1 className="w-32">
+    <nav className="fixed top-0 z-50 flex w-full flex-col items-center justify-between gap-4 bg-gray-100 px-5 py-4 md:py-2 md:flex-row">
+      <h1 className="w-auto md:w-32">
         <Link to="/">
           <img src={logoLongtail} alt="Logo Longtail" className="h-8" />
         </Link>
@@ -37,10 +37,10 @@ const Navbar: React.FC<NavbarProps> = ({
         </li>
         {isAdmin ? (
           <>
-            <span className="font-bold text-logo">Hello Admin</span>
+            <span className="font-bold capitalize text-logo">Hello Admin!</span>
             <button
               onClick={handleLogout}
-              className="text-sm font-bold text-red-600"
+              className="rounded-full bg-logo px-4 py-1 text-sm font-bold text-white"
             >
               Logout
             </button>

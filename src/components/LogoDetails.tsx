@@ -7,10 +7,7 @@ interface LogoDetailsProps {
   isAdmin: boolean;
 }
 
-const LogoDetails: React.FC<LogoDetailsProps> = ({isAdmin}) => {
-
-  console.log('isAdmin', isAdmin);
-  
+const LogoDetails: React.FC<LogoDetailsProps> = ({ isAdmin }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const { name } = useParams<{ name: string }>();
@@ -68,12 +65,17 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({isAdmin}) => {
             />
           </div>
           <div className="col-span-1 bg-gray-100 p-8 pt-14">
+            {/* {isAdmin && (
+              <p className="-mt-6 mb-8 w-max rounded-full border border-green-600 bg-green-200 px-4 py-2 text-sm font-bold text-green-800">
+                Admin
+              </p>
+            )} */}
             <h2 className="mb-4 text-2xl font-bold">{logo.title}</h2>
             <p className="max-h-48 overflow-y-auto text-pretty text-justify text-gray-700 md:max-h-80">
               {logo.content}
             </p>
             <hr className="my-6 border-gray-400" />
-            <DownloadLinks logoFormats={logo.logoFormats} />
+            <DownloadLinks logoFormats={logo.logoFormats} isAdmin={isAdmin} />
           </div>
         </div>
       </div>
@@ -82,27 +84,29 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({isAdmin}) => {
 };
 
 // Reusable component for download links
-const DownloadLinks: React.FC<{ logoFormats: Logo['logoFormats'] }> = ({
-  logoFormats,
-}) => (
+const DownloadLinks: React.FC<{
+  logoFormats: Logo['logoFormats'];
+  isAdmin: boolean;
+}> = ({ logoFormats, isAdmin }) => (
   <div>
     <p className="mb-6 text-lg font-semibold">Download Links:</p>
     <ul className="flex items-center gap-4">
-      {Object.entries(logoFormats).map(
-        ([key, value]) =>
-          value && (
-            <li key={key}>
-              <Link
-                to={`https://longtail.info/logo/dynamic/api/v1/downloadImage.php/?url=${value}`}
-                className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
-                download
-                // target="_blank"
-              >
-                {key.split('_')[1].toUpperCase()}
-              </Link>
-            </li>
-          ),
-      )}
+      {Object.entries(logoFormats).map(([key, value]) => {
+        if (!value) return null;
+        if (!isAdmin && key === 'img_hd') return null; // Hide 'img_hd' if not admin
+
+        return (
+          <li key={key}>
+            <Link
+              to={`https://longtail.info/logo/dynamic/api/v1/downloadImage.php/?url=${value}`}
+              className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
+              download
+            >
+              {key.split('_')[1].toUpperCase()}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   </div>
 );
