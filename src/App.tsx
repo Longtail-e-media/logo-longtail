@@ -39,7 +39,7 @@ const App: React.FC = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <Router basename='/logo'>
+    <Router basename='/logo/'>
       <Navbar
         isAdmin={isAdmin}
         setIsAdmin={setIsAdmin}
