@@ -104,9 +104,10 @@ const DownloadLinks: React.FC<{
         return (
           <li key={key}>
             <Link
-              to={`https://longtail.info/logo/dynamic/api/v1/downloadImage.php/?url=${value}`}
+              to={`https://longtail.info/logo/api/v1/downloadImage.php/?url=${value}`}
               className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
               download
+              target="_blank"
             >
               {key.split('_')[1].toUpperCase()}
             </Link>

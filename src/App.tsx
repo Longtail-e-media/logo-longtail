@@ -57,7 +57,6 @@ const App: React.FC = () => {
           path="/admin"
           element={<Login setIsAdmin={setIsAdmin} setUsername={setUsername} />}
         />
-        {/* <Route path="/apanel" element={<Navigate to="https://longtail.info/logo/dynamic/apanel" />} /> */}
         <Route path="*" element={<Error404 />} />
       </Routes>
     </Router>
