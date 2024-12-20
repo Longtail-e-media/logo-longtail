@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
+import Error404 from '../layouts/Error404';
 
 interface LogoDisplayProps {
   isAdmin: boolean;
@@ -16,18 +17,7 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
 
   if (!logos || logos.length === 0)
     return (
-      <section className="flex h-screen w-full flex-col items-center justify-center gap-8">
-        <p className="text-center text-base md:text-4xl">No logos found.</p>
-        <Link
-          to="/"
-          className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#bf1f49] px-6 py-1 text-xs font-bold text-white md:text-base"
-        >
-          <i className="text-base transition-all duration-300 group-hover:-translate-x-2 md:text-2xl">
-            &larr;
-          </i>
-          Back to Home
-        </Link>
-      </section>
+     <Error404 displayText="No Logo Found."/>
     );
 
   return (

@@ -38,7 +38,7 @@ const Search: React.FC<SearchProps> = ({ setFilteredLogos }) => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="relative flex w-full items-center gap-3 border-b-2 border-gray-300 bg-white px-2 md:max-w-md">
+    <div className="relative flex w-full items-center gap-3 border-b-2 border-gray-300 bg-white px-2 md:max-w-lg">
       <svg
         stroke="currentColor"
         fill="none"
