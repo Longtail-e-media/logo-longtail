@@ -4,9 +4,10 @@ import MD5 from 'crypto-js/md5';
 
 interface LoginProps {
   setIsAdmin: React.Dispatch<React.SetStateAction<boolean>>;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Login: React.FC<LoginProps> = ({ setIsAdmin }) => {
+const Login: React.FC<LoginProps> = ({ setIsAdmin, setUsername }) => {
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
@@ -57,8 +58,10 @@ const Login: React.FC<LoginProps> = ({ setIsAdmin }) => {
           localStorage.setItem('email', email);
           localStorage.setItem('password', hashedPassword);
           localStorage.setItem('isAdmin', 'true'); // Persist isAdmin
+          localStorage.setItem('username', user.username); // Persist username
         }
         setIsAdmin(true);
+        setUsername(user.username);
         setMessage({
           type: 'success',
           text: 'Welcome! You are successfully logged in.',

@@ -9,9 +9,11 @@ interface LogoDisplayProps {
   logos: Logo[];
 }
 
-const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
+const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos, isAdmin }) => {
   const [visibleItems, setVisibleItems] = useState(36);
-  const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>({});
+  const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>(
+    {},
+  );
 
   useEffect(() => {
     // Initialize loading states for logos that don't exist in the current state
@@ -22,7 +24,10 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
       }
     });
     if (Object.keys(newLoadingStates).length > 0) {
-      setLoadingStates((prevStates) => ({ ...prevStates, ...newLoadingStates }));
+      setLoadingStates((prevStates) => ({
+        ...prevStates,
+        ...newLoadingStates,
+      }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logos]);
@@ -56,12 +61,14 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
                 }`}
               >
                 <img
-                  src={logo.logoFormats.img_svg}
+                  // src={logo.img_thumb}
+                  // src={logo.logoFormats.img_svg}
+                  src={isAdmin ? logo.img_thumb : logo.img_thumb}
                   alt={logo.title}
                   className="aspect-square size-36 bg-transparent object-contain md:size-48"
                   draggable="false"
-                  onLoad={() => handleImageLoad(logo.name)} // Mark logo as loaded
-                  onError={() => handleImageLoad(logo.name)} // Handle error state
+                  onLoad={() => handleImageLoad(logo.name)}
+                  onError={() => handleImageLoad(logo.name)}
                 />
               </Link>
             </div>

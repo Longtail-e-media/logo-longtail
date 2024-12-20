@@ -8,16 +8,24 @@ interface NavbarProps {
   isAdmin: boolean;
   setIsAdmin: React.Dispatch<React.SetStateAction<boolean>>;
   setFilteredLogos: React.Dispatch<React.SetStateAction<Logo[]>>;
+  username: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
   isAdmin,
   setIsAdmin,
   setFilteredLogos,
+  username,
 }) => {
   const [isSidenavOpen, setIsSidenavOpen] = useState(false);
 
-  const handleLogout = () => setIsAdmin(false);
+  const handleLogout = () => {
+    setIsAdmin(false);
+    localStorage.removeItem('email');
+    localStorage.removeItem('password');
+    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('username');
+  };
   const toggleSidenav = () => setIsSidenavOpen(!isSidenavOpen);
 
   return (
@@ -56,7 +64,7 @@ const Navbar: React.FC<NavbarProps> = ({
           {isAdmin ? (
             <>
               <span className="font-bold capitalize text-logo">
-                Hello Admin!
+                Hello {username}!
               </span>
               <button
                 onClick={handleLogout}

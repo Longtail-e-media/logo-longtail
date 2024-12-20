@@ -49,17 +49,23 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({ isAdmin }) => {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
       onClick={handleOverlayClick}
     >
-      <div className="relative size-full scale-0 animate-scaleIn rounded-lg shadow-lg transition-all duration-300 ease-linear md:h-[85vh] md:w-4/5">
+      <div className="relative size-full scale-0 animate-scaleIn rounded-lg shadow-lg transition-all duration-300 ease-linear md:h-screen md:w-full">
         <button
-          className="absolute right-4 top-3 text-4xl text-gray-800"
+          className="absolute right-6 top-3 text-5xl text-gray-800"
           onClick={closeModal}
         >
           &times;
         </button>
         <div className="grid h-full grid-cols-1 gap-0 md:grid-cols-3">
           <div className="flex items-center justify-center bg-white px-12 md:col-span-2">
+            {/* <img
+              src={logo.img_thumb}
+              // src={logo.logoFormats.img_svg}
+              alt={logo.title}
+              className="h-auto max-h-[80vh] w-full object-contain"
+            /> */}
             <img
-              src={logo.logoFormats.img_svg}
+              src={isAdmin ? logo.logoFormats.img_svg : logo.img_thumb}
               alt={logo.title}
               className="h-auto max-h-[80vh] w-full object-contain"
             />
@@ -93,7 +99,7 @@ const DownloadLinks: React.FC<{
     <ul className="flex items-center gap-4">
       {Object.entries(logoFormats).map(([key, value]) => {
         if (!value) return null;
-        if (!isAdmin && key === 'img_hd') return null; // Hide 'img_hd' if not admin
+        if (!isAdmin && key === 'img_svg') return null; // Hide 'img_svg' if not admin
 
         return (
           <li key={key}>
