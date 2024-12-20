@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import error from '../assets/error.svg';
 
 interface Error404Props {
-  displayText: string;
+  displayText?: string;
 }
 
 const Error404: React.FC<Error404Props> = ({ displayText }) => {

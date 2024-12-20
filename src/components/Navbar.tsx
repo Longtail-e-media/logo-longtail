@@ -53,16 +53,6 @@ const Navbar: React.FC<NavbarProps> = ({
           <Search setFilteredLogos={setFilteredLogos} />
         </div>
         <ul className="hidden md:flex md:flex-1 md:items-center md:justify-end md:gap-4">
-          <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `${isActive ? 'font-extrabold' : 'font-bold'} text-lg text-logo`
-              }
-            >
-              About
-            </NavLink>
-          </li>
           {isAdmin ? (
             <>
               <span className="font-bold capitalize text-logo">
@@ -85,6 +75,16 @@ const Navbar: React.FC<NavbarProps> = ({
               </Link>
             </li>
           )}
+          <li>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `${isActive ? 'font-extrabold' : 'font-bold'} text-lg text-logo`
+              }
+            >
+              About
+            </NavLink>
+          </li>
         </ul>
       </nav>
 
