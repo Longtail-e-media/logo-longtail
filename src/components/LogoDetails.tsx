@@ -99,7 +99,7 @@ const DownloadLinks: React.FC<{
     <ul className="flex items-center gap-4">
       {Object.entries(logoFormats).map(([key, value]) => {
         if (!value) return null;
-        if (!isAdmin && key === 'img_svg') return null; // Hide 'img_svg' if not admin
+        if (!isAdmin && (key === 'img_svg' || key === 'img_pdf')) return null; // Hide 'img_svg' and 'img_pdf' if not admin
 
         return (
           <li key={key}>
