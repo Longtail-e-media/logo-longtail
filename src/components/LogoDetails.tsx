@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
 import useFetchLogos from '../hooks/useFetchLogos';
+import Error404 from '../layouts/Error404';
 
 interface LogoDetailsProps {
   isAdmin: boolean;
@@ -22,20 +23,7 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({ isAdmin }) => {
   const logo = data.find((logo: Logo) => logo.name === name);
 
   if (!logo) {
-    return (
-      <section className="flex h-screen w-full flex-col items-center justify-center gap-8">
-        <p className="text-center text-base md:text-4xl">Logo not found</p>
-        <Link
-          to="/"
-          className="group inline-flex items-center justify-center gap-2 rounded-full bg-logo px-6 py-1 text-xs font-bold text-white md:text-base"
-        >
-          <i className="text-base transition-all duration-300 group-hover:-translate-x-2 md:text-2xl">
-            &larr;
-          </i>
-          Back to Home
-        </Link>
-      </section>
-    );
+    return <Error404 displayText="Logo not Found." />;
   }
 
   const closeModal = () => navigate(-1);
