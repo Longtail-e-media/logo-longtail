@@ -1,5 +1,7 @@
 # [Logo Longtail](https://logo.longtail.info/)
 
+---
+
 ## 📖 Description
 
 `Logo Longtail` is an in-house project showcasing all the logos of the brands and companies `Longtail` has worked with. This platform was built with a dedicated team of designers and developers. Users can:
@@ -101,6 +103,27 @@
 ```
 
 --- 
+
+## List of API Endpoints and Usage
+
+1. `getLogo.php`
+    - **Description**: Fetches all the logos from the database with the svg, png, jpg & pdf formats.
+    - **Files**: `App.tsx`, `LogoDetails.tsx`, `Search.tsx`
+
+2. `login.php`
+    - **Description**: Authenticates the user and returns the user's information.
+    - **Files**: `Login.tsx`, `LoginModal.tsx`
+
+
+`NOTE`: The API site url and the API key are stored in the `.env` file, and is listed below.
+
+```bash
+VITE_API_URL="https://longtail.info/logo/api/v1/"
+```
+
+`NOTE`: The frontend is hosted on `Cloudflare Pages`, and the backend is hosted on `MeroHamro` cPanel.
+
+---
 
 ## ⚙️ Setup and Installation Frontend
 
