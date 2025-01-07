@@ -17,9 +17,6 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({ isAdmin }) => {
   // Fetch logos
   const { data, loading, error } = useFetchLogos(`${apiUrl}getLogo.php`);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
   if (loading) return null;
   if (error) {
     console.error(error);

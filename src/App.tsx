@@ -35,11 +35,14 @@ const App: React.FC = () => {
     }
   }, []);
 
-  if (loading) return <>{/* <Loader /> */}</>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return null;
+  if (error) {
+    console.error(error);
+    return null;
+  }
 
   return (
-    <Router basename='/logo/'>
+    <Router basename="/logo/">
       <Navbar
         isAdmin={isAdmin}
         setIsAdmin={setIsAdmin}

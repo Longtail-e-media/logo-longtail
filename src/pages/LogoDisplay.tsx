@@ -9,10 +9,10 @@ interface LogoDisplayProps {
 }
 
 interface LogoFormats {
-  img_svg: string;
-  img_png: string;
-  img_jpg: string;
-  img_pdf: string;
+  img_svg?: string;
+  img_png?: string;
+  img_jpg?: string;
+  img_pdf?: string;
 }
 
 interface Logo {
