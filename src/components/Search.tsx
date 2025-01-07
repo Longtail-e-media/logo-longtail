@@ -34,8 +34,11 @@ const Search: React.FC<SearchProps> = ({ setFilteredLogos }) => {
     setQuery(e.target.value);
   };
 
-  if (loading) return <>{/* <Loader /> */}</>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return null;
+  if (error) {
+    console.error(error);
+    return null;
+  }
 
   return (
     <div className="relative flex w-full items-center gap-3 border-b-2 border-gray-300 bg-white px-2 md:max-w-lg">

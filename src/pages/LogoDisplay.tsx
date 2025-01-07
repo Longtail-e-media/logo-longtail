@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Logo } from '../interfaces/types';
 import Error404 from '../layouts/Error404';
 import SkeletonLoader from '../components/SkeletonLoader';
 
@@ -9,37 +8,31 @@ interface LogoDisplayProps {
   logos: Logo[];
 }
 
-const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos, isAdmin }) => {
-  const [visibleItems, setVisibleItems] = useState(36);
-  const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>(
-    {},
-  );
+interface LogoFormats {
+  img_svg?: string;
+  img_png?: string;
+  img_jpg?: string;
+  img_pdf?: string;
+}
 
-  useEffect(() => {
-    // Initialize loading states for logos that don't exist in the current state
-    const newLoadingStates: Record<string, boolean> = {};
-    logos.forEach((logo) => {
-      if (!loadingStates.hasOwnProperty(logo.name)) {
-        newLoadingStates[logo.name] = true;
-      }
-    });
-    if (Object.keys(newLoadingStates).length > 0) {
-      setLoadingStates((prevStates) => ({
-        ...prevStates,
-        ...newLoadingStates,
-      }));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [logos]);
+interface Logo {
+  name: string;
+  title: string;
+  logoFormats: LogoFormats;
+}
+
+const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
+  const [visibleItems, setVisibleItems] = useState<number>(36);
+  const [loadingLogos, setLoadingLogos] = useState<Record<string, boolean>>({});
 
   const handleLoadMore = () => {
     setVisibleItems((prevVisibleItems) => prevVisibleItems + 24);
   };
 
   const handleImageLoad = (logoName: string) => {
-    setLoadingStates((prevStates) => ({
-      ...prevStates,
-      [logoName]: false,
+    setLoadingLogos((prevState) => ({
+      ...prevState,
+      [logoName]: false, // Mark the image as loaded
     }));
   };
 
@@ -53,23 +46,34 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos, isAdmin }) => {
         <section className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-6">
           {logos.slice(0, visibleItems).map((logo: Logo) => (
             <div key={logo.name} className="relative">
-              {loadingStates[logo.name] && <SkeletonLoader />}
+              {loadingLogos[logo.name] !== false && <SkeletonLoader />}
               <Link
                 to={`/logo/${logo.name}`}
-                className={`flex items-center justify-center border bg-white p-4 text-center shadow-sm transition-all duration-100 hover:shadow md:px-4 md:py-8 ${
-                  loadingStates[logo.name] ? 'hidden' : 'block'
+                className={`flex items-center flex-col justify-center border bg-white p-4 text-center shadow-sm transition-all duration-100 hover:shadow md:px-4 md:py-8 ${
+                  loadingLogos[logo.name] === false ? '' : 'hidden'
                 }`}
               >
                 <img
-                  // src={logo.img_thumb}
-                  // src={logo.logoFormats.img_svg}
-                  src={isAdmin ? logo.img_thumb : logo.img_thumb}
+                  src={
+                    logo.logoFormats.img_svg ||
+                    logo.logoFormats.img_png ||
+                    logo.logoFormats.img_jpg ||
+                    logo.logoFormats.img_pdf
+                  }
                   alt={logo.title}
                   className="aspect-square size-36 bg-transparent object-contain md:size-48"
                   draggable="false"
                   onLoad={() => handleImageLoad(logo.name)}
-                  onError={() => handleImageLoad(logo.name)}
                 />
+                 {/* <span className="mt-2 text-sm text-gray-500">
+                  {logo.logoFormats.img_svg
+                    ? 'img_svg'
+                    : logo.logoFormats.img_png
+                    ? 'img_png'
+                    : logo.logoFormats.img_jpg
+                    ? 'img_jpg'
+                    : 'img_pdf'}
+                </span> */}
               </Link>
             </div>
           ))}

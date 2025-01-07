@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Logo } from '../interfaces/types';
 import useFetchLogos from '../hooks/useFetchLogos';
+import Error404 from '../layouts/Error404';
 
 interface LogoDetailsProps {
   isAdmin: boolean;
@@ -16,26 +17,16 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({ isAdmin }) => {
   // Fetch logos
   const { data, loading, error } = useFetchLogos(`${apiUrl}getLogo.php`);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return null;
+  if (error) {
+    console.error(error);
+    return null;
+  }
 
   const logo = data.find((logo: Logo) => logo.name === name);
 
   if (!logo) {
-    return (
-      <section className="flex h-screen w-full flex-col items-center justify-center gap-8">
-        <p className="text-center text-base md:text-4xl">Logo not found</p>
-        <Link
-          to="/"
-          className="group inline-flex items-center justify-center gap-2 rounded-full bg-logo px-6 py-1 text-xs font-bold text-white md:text-base"
-        >
-          <i className="text-base transition-all duration-300 group-hover:-translate-x-2 md:text-2xl">
-            &larr;
-          </i>
-          Back to Home
-        </Link>
-      </section>
-    );
+    return <Error404 displayText="Logo not Found." />;
   }
 
   const closeModal = () => navigate(-1);
@@ -65,10 +56,25 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({ isAdmin }) => {
               className="h-auto max-h-[80vh] w-full object-contain"
             /> */}
             <img
-              src={isAdmin ? logo.logoFormats.img_svg : logo.img_thumb}
+              // src={isAdmin ? logo.logoFormats.img_svg : logo.img_thumb}
+              src={
+                logo.logoFormats.img_svg ||
+                logo.logoFormats.img_png ||
+                logo.logoFormats.img_jpg ||
+                logo.logoFormats.img_pdf
+              }
               alt={logo.title}
               className="h-auto max-h-[80vh] w-full object-contain"
             />
+            {/* <span className="mt-2 text-sm text-gray-500">
+                  {logo.logoFormats.img_svg
+                    ? 'img_svg'
+                    : logo.logoFormats.img_png
+                    ? 'img_png'
+                    : logo.logoFormats.img_jpg
+                    ? 'img_jpg'
+                    : 'img_pdf'}
+                </span> */}
           </div>
           <div className="col-span-1 bg-gray-100 p-8 pt-14">
             {/* {isAdmin && (
@@ -99,14 +105,15 @@ const DownloadLinks: React.FC<{
     <ul className="flex items-center gap-4">
       {Object.entries(logoFormats).map(([key, value]) => {
         if (!value) return null;
-        if (!isAdmin && key === 'img_svg') return null; // Hide 'img_svg' if not admin
+        if (!isAdmin && (key === 'img_svg' || key === 'img_pdf')) return null; // Hide 'img_svg' and 'img_pdf' if not admin
 
         return (
           <li key={key}>
             <Link
-              to={`https://longtail.info/logo/dynamic/api/v1/downloadImage.php/?url=${value}`}
+              to={`https://longtail.info/logo/api/v1/downloadImage.php/?url=${value}`}
               className="rounded-full border border-gray-700/40 bg-white px-6 py-2 font-bold text-gray-700 shadow-md hover:bg-gray-300"
               download
+              target="_blank"
             >
               {key.split('_')[1].toUpperCase()}
             </Link>

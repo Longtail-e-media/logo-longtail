@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LogoDisplay from './pages/LogoDisplay';
 import LogoDetails from './components/LogoDetails';
@@ -35,11 +35,14 @@ const App: React.FC = () => {
     }
   }, []);
 
-  if (loading) return <>{/* <Loader /> */}</>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return null;
+  if (error) {
+    console.error(error);
+    return null;
+  }
 
   return (
-    <Router>
+    <Router basename="/logo/">
       <Navbar
         isAdmin={isAdmin}
         setIsAdmin={setIsAdmin}
@@ -57,7 +60,6 @@ const App: React.FC = () => {
           path="/admin"
           element={<Login setIsAdmin={setIsAdmin} setUsername={setUsername} />}
         />
-        <Route path="/apanel" element={<Navigate to="https://longtail.info/logo/dynamic/apanel" />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
     </Router>
