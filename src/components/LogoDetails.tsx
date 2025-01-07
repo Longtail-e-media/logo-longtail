@@ -20,6 +20,12 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({ isAdmin }) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  if (loading) return null;
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
   const logo = data.find((logo: Logo) => logo.name === name);
 
   if (!logo) {
@@ -53,10 +59,25 @@ const LogoDetails: React.FC<LogoDetailsProps> = ({ isAdmin }) => {
               className="h-auto max-h-[80vh] w-full object-contain"
             /> */}
             <img
-              src={isAdmin ? logo.logoFormats.img_svg : logo.img_thumb}
+              // src={isAdmin ? logo.logoFormats.img_svg : logo.img_thumb}
+              src={
+                logo.logoFormats.img_svg ||
+                logo.logoFormats.img_png ||
+                logo.logoFormats.img_jpg ||
+                logo.logoFormats.img_pdf
+              }
               alt={logo.title}
               className="h-auto max-h-[80vh] w-full object-contain"
             />
+            {/* <span className="mt-2 text-sm text-gray-500">
+                  {logo.logoFormats.img_svg
+                    ? 'img_svg'
+                    : logo.logoFormats.img_png
+                    ? 'img_png'
+                    : logo.logoFormats.img_jpg
+                    ? 'img_jpg'
+                    : 'img_pdf'}
+                </span> */}
           </div>
           <div className="col-span-1 bg-gray-100 p-8 pt-14">
             {/* {isAdmin && (

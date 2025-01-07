@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Logo } from '../interfaces/types';
 import Error404 from '../layouts/Error404';
 import SkeletonLoader from '../components/SkeletonLoader';
 
@@ -9,8 +8,21 @@ interface LogoDisplayProps {
   logos: Logo[];
 }
 
-const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos, isAdmin }) => {
-  const [visibleItems, setVisibleItems] = useState(36);
+interface LogoFormats {
+  img_svg: string;
+  img_png: string;
+  img_jpg: string;
+  img_pdf: string;
+}
+
+interface Logo {
+  name: string;
+  title: string;
+  logoFormats: LogoFormats;
+}
+
+const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos }) => {
+  const [visibleItems, setVisibleItems] = useState<number>(36);
   const [loadingLogos, setLoadingLogos] = useState<Record<string, boolean>>({});
 
   const handleLoadMore = () => {
@@ -23,6 +35,7 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos, isAdmin }) => {
       [logoName]: false, // Mark the image as loaded
     }));
   };
+
   if (!logos || logos.length === 0) {
     return <Error404 displayText="No Logo Found." />;
   }
@@ -36,18 +49,31 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ logos, isAdmin }) => {
               {loadingLogos[logo.name] !== false && <SkeletonLoader />}
               <Link
                 to={`/logo/${logo.name}`}
-                className={`flex items-center justify-center border bg-white p-4 text-center shadow-sm transition-all duration-100 hover:shadow md:px-4 md:py-8 ${
+                className={`flex items-center flex-col justify-center border bg-white p-4 text-center shadow-sm transition-all duration-100 hover:shadow md:px-4 md:py-8 ${
                   loadingLogos[logo.name] === false ? '' : 'hidden'
                 }`}
               >
                 <img
-                  src={isAdmin ? logo.logoFormats.img_svg : logo.img_thumb}
+                  src={
+                    logo.logoFormats.img_svg ||
+                    logo.logoFormats.img_png ||
+                    logo.logoFormats.img_jpg ||
+                    logo.logoFormats.img_pdf
+                  }
                   alt={logo.title}
                   className="aspect-square size-36 bg-transparent object-contain md:size-48"
                   draggable="false"
                   onLoad={() => handleImageLoad(logo.name)}
-                  onError={() => handleImageLoad(logo.name)}
                 />
+                 {/* <span className="mt-2 text-sm text-gray-500">
+                  {logo.logoFormats.img_svg
+                    ? 'img_svg'
+                    : logo.logoFormats.img_png
+                    ? 'img_png'
+                    : logo.logoFormats.img_jpg
+                    ? 'img_jpg'
+                    : 'img_pdf'}
+                </span> */}
               </Link>
             </div>
           ))}
